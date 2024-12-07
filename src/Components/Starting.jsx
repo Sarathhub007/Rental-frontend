@@ -6,30 +6,40 @@ import "./Starting.css";
 function Starting() {
   const { isLoaded, user } = useUser();
   const navigate = useNavigate();
-
   if (user) {
     navigate("/home");
   }
 
   return (
     <>
+      {/* Header Section */}
       <header className="header">
         <div className="header-links">
-          <a href="/Sign-in" className="header-button">Sign In</a>
-          <a href="/Sign-up" className="header-button">Sign Up</a>
+          <a href="/Sign-in" className="header-button">
+            Sign In
+          </a>
+          <a href="/Sign-up" className="header-button">
+            Sign Up
+          </a>
         </div>
       </header>
 
+      {/* Hero Section */}
       <section className="hero-section">
-        <div className="hero-content">
-          <h1 className="hero-title">Welcome to Rental Managment</h1>
-          <p className="hero-subtitle">
-            Your go-to platform for Property Sales & Rental Management.
-          </p>
-          <a href="/Sign-in" className="cta-button">Get Started</a>
+        <div className="hero-overlay">
+          <div className="hero-content">
+            <h1 className="hero-title">Welcome to Rental Management</h1>
+            <p className="hero-subtitle">
+              Your go-to platform for Property Sales & Rental Management.
+            </p>
+            <a href="/Sign-in" className="cta-button">
+              Get Started
+            </a>
+          </div>
         </div>
       </section>
 
+      {/* Features Section */}
       <section className="features-section">
         <h2>Key Features</h2>
         <div className="features-grid">
@@ -39,15 +49,22 @@ function Starting() {
           </div>
           <div className="feature">
             <h3>Rental Listings</h3>
-            <p>Browse a wide range of rental properties to find your perfect match.</p>
+            <p>
+              Browse a wide range of rental properties to find your perfect
+              match.
+            </p>
           </div>
           <div className="feature">
             <h3>Tenant/Owner Management</h3>
-            <p>Connect with property owners or tenants in one convenient platform.</p>
+            <p>
+              Connect with property owners or tenants in one convenient
+              platform.
+            </p>
           </div>
         </div>
       </section>
 
+      {/* Footer */}
       <footer className="footer">
         <p>&copy; 2024 - Property Sales & Rental Management Platform</p>
       </footer>

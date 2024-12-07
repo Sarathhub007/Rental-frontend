@@ -1,10 +1,9 @@
-import {SignIn} from "@clerk/clerk-react"
-function Login()
-{
-    return(
-        <>
-           <SignIn/>
-        </>
-    )
+import { SignIn } from "@clerk/clerk-react";
+function Login() {
+  return (
+    <>
+      <SignIn />
+    </>
+  );
 }
-export default Login
+export default Login;
