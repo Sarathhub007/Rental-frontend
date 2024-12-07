@@ -1,0 +1,129 @@
+.about-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px;
+    background-color: #f4f4f4;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s ease-in-out;
+  }
+  
+  .about-title {
+    font-size: 3rem;
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  section {
+    margin-bottom: 40px;
+  }
+  
+  .mission, .history, .values, .achievements, .call-to-action {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .mission:hover, .history:hover, .values:hover, .achievements:hover, .call-to-action:hover {
+    transform: translateY(-5px);
+  }
+  
+  .mission h2, .history h2, .values h2, .achievements h2, .call-to-action h2 {
+    font-size: 2rem;
+    color: #007BFF;
+    margin-bottom: 15px;
+  }
+  
+  p, ul {
+    font-size: 1.2rem;
+    color: #666;
+    line-height: 1.8;
+  }
+  
+  .team-members {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  
+  .team-member {
+    text-align: center;
+    max-width: 200px;
+  }
+  
+  .team-member img {
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .team-member h3 {
+    margin-top: 10px;
+    font-size: 1.5rem;
+    color: #333;
+  }
+  
+  .team-member p {
+    font-size: 1.1rem;
+    color: #007BFF;
+  }
+  
+  .values ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .values li {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    color: #333;
+    position: relative;
+  }
+  
+  .values li::before {
+    content: "✔";
+    color: #007BFF;
+    position: absolute;
+    left: -20px;
+  }
+  
+  .call-to-action a {
+    color: #007BFF;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .call-to-action a:hover {
+    text-decoration: underline;
+  }
+  
+  @media (max-width: 768px) {
+    .about-container {
+      padding: 20px;
+    }
+  
+    .team-members {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .team-member {
+      margin-bottom: 20px;
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  

@@ -1,0 +1,158 @@
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  padding: 10px 20px;
+  color: white;
+}
+
+.navbar-logo h1 {
+  font-size: 24px; 
+  margin: 0; 
+}
+
+.navbar-links {
+  display: flex;
+  gap: 20px; 
+}
+
+.navbar-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.navbar-links a:hover {
+  text-decoration: underline;
+}
+
+.welcome-section {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #f7f7f7, #e2e2e2);
+}
+
+.welcome-section h2 {
+  font-size: 38px; 
+  margin-bottom: 15px;
+}
+
+.welcome-section p {
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+.welcome-section button {
+  padding: 12px 25px; 
+  font-size: 18px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.welcome-section button:hover {
+  background-color: #45a049;
+}
+
+
+.featured-section {
+  padding: 40px 20px; 
+  text-align: center;
+}
+
+.featured-section h2 {
+  margin-bottom: 35px;
+  font-size: 30px;
+  font-weight: bold; 
+}
+
+.property-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px; 
+  padding: 20px;
+}
+
+.property-card {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.property-card img {
+  width: 100%;             
+  height: 200px;          
+  object-fit: cover;      
+  border-radius: 10px 10px 0 0; 
+  transition: transform 0.3s ease; 
+}
+
+.property-card h3 {
+  font-size: 20px;
+  margin: 15px 0;
+}
+
+.property-card p {
+  font-size: 16px;
+  color: #4caf50;
+}
+
+.property-card:hover {
+  transform: scale(1.05);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 15px 25px; 
+}
+
+.property-card img:hover {
+  transform: scale(1.02); 
+}
+
+
+@media (max-width: 1024px) {
+  .property-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px; 
+  }
+
+  .navbar-logo h1 {
+    font-size: 20px; 
+  }
+
+  .welcome-section h2 {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .property-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .welcome-section h2 {
+    font-size: 28px; 
+  }
+
+  .welcome-section p {
+    font-size: 16px; 
+  }
+
+  .navbar-links a {
+    font-size: 16px; 
+  }
+}
+
+
+.footer {
+  background-color: #333;
+  color: white;
+  padding: 30px 20px;
+  text-align: center;
+  border-top: 1px solid #444; 
+  font-size: 16px;
+}
