@@ -1,86 +1,253 @@
-import React, { useEffect, useRef, useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Navbar from "./Components/Navbar";
-import Starting from "./Components/Starting";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
+import Navbar from "./Components/pages/Navbar";
+
+import ProtectedRoute from "./Components/auth/ProtectedRoute";
+
+import Starting from "./Components/pages/Starting";
 import Signin from "./Components/auth/Signin";
 import Signup from "./Components/auth/Signup";
-import About from "./Components/About";
-import Home from "./Components/Home";
-import Contact from "./Components/contact";
-import Explore from "./Components/Explore";
-import Chat from "./Components/Chat";
+import About from "./Components/pages/About";
+import Home from "./Components/pages/Home";
+import Contact from "./Components/pages/Contact";
+import Explore from "./Components/pages/Explore";
+import PredictRent from "./Components/pages/PredictRent";
+import CategorizeIssue from "./Components/pages/CategorizeIssue";
+import AddProperty from "./Components/pages/AddProperty";
+import PropertiesList from "./Components/pages/PropertiesList";
+import PropertyDetails from "./Components/pages/PropertyDetails";
+import EditProperty from "./Components/pages/EditProperty";
+import Chat from "./Components/pages/Chat.jsx";
+import Dashboard from "./Components/pages/dashboard";
+
+// Tenants
+import TenantList from "./Components/Tenant Management/TenantList.jsx";
+import TenantDetails from "./Components/Tenant Management/TenantDetails.jsx";
+import AddTenant from "./Components/Tenant Management/AddTenant.jsx";
+
+// Leases
+import LeaseList from "./Components/Leases/LeaseList.jsx";
+import LeaseDetails from "./Components/Leases/LeaseDetails.jsx";
+import AddLease from "./Components/Leases/AddLease.jsx";
+
+// Maintenance
+import MaintenanceList from "./Components/Maintenance/MaintenanceList.jsx";
+import MaintenanceDetails from "./Components/Maintenance/MaintenanceDetails.jsx";
+import AddMaintenance from "./Components/Maintenance/AddMaintenance.jsx";
+
 import { io } from "socket.io-client";
-import { useUser } from "@clerk/clerk-react";
 
-function App() {
-  const [users, setUsers] = useState([]);
-  const [userName, setUserName] = useState("");
-  const hasPrompted = useRef(false);
-  const socket = useRef(null);
-  const { isLoaded, user } = useUser();
+function AppContainer() {
+  const location = useLocation();
+  const socket = io("http://localhost:3000");
 
-  useEffect(() => {
-    socket.current = io("http://localhost:3000");
+  // Hide Navbar on auth pages
+  const hideNavbar = ["/sign-in", "/sign-up"].includes(location.pathname);
 
-    socket.current.on("connect", () => {
-      console.log("Connected: ", socket.current.id);
-    });
-
-    return () => {
-      socket.current.off("connect");
-      socket.current.disconnect();
-    };
-  }, []);
-
-  // useEffect(() => {
-  //   if (!hasPrompted.current) {
-  //     const name = "Enter your username";
-  //     console.log(name);
-  //     socket.current.emit("addUsers", name);
-  //     setUserName(name);
-  //     hasPrompted.current = true;
-  //   }
-
-  //   socket.current.on("giveUsers", (usersList) => {
-  //     setUsers(usersList);
-  //   });
-
-  //   socket.current.on("error", (error) => {
-  //     console.log("Socket error:", error);
-  //   });
-
-  //   return () => {
-  //     socket.current.off("addUsers");
-  //     socket.current.off("giveUsers");
-  //     socket.current.off("error");
-  //   };
-  // }, []);
-  console.log(user?.fullName);
   return (
-    <Router>
-      <Navbar />
+    <>
+     {!hideNavbar && <Navbar socket={socket} />}
       <Routes>
         <Route path="/" element={<Starting />} />
+
+        {/* Public auth routes */}
         <Route path="/sign-in" element={<Signin />} />
         <Route path="/sign-up" element={<Signup />} />
+
+        {/* Public pages */}
         <Route path="/about" element={<About />} />
-        <Route path="/home" element={<Home />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/explore" element={<Explore />} />
-        <Route path="/explore/:propertyId" element={<Explore />} />
+
+        {/* Protected routes */}
         <Route
-          path={`/chat`}
+          path="/home"
           element={
-            <div className="ml-2 flex justify-around">
-              {socket.current && (
-                <Chat socket={socket.current} user={user?.fullName} />
-              )}
-            </div>
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/chat"
+          element={
+            <ProtectedRoute>
+               <Chat socket={socket} user="Sarath" /> 
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/explore"
+          element={
+            <ProtectedRoute>
+              <Explore />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/explore/:propertyId"
+          element={
+            <ProtectedRoute>
+              <Explore />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/properties"
+          element={
+            <ProtectedRoute>
+              <PropertiesList />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/property/add"
+          element={
+            <ProtectedRoute>
+              <AddProperty />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/property/:id"
+          element={
+            <ProtectedRoute>
+              <PropertyDetails />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/property/edit/:id"
+          element={
+            <ProtectedRoute>
+              <EditProperty />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/predict-rent"
+          element={
+            <ProtectedRoute>
+              <PredictRent />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/categorize-issue"
+          element={
+            <ProtectedRoute>
+              <CategorizeIssue />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Dashboard */}
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* TENANT MANAGEMENT */}
+        <Route
+          path="/tenants"
+          element={
+            <ProtectedRoute>
+              <TenantList />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/tenant/add"
+          element={
+            <ProtectedRoute>
+              <AddTenant />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/tenant/:id"
+          element={
+            <ProtectedRoute>
+              <TenantDetails />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* LEASE MANAGEMENT */}
+        <Route
+          path="/leases"
+          element={
+            <ProtectedRoute>
+              <LeaseList />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/lease/add"
+          element={
+            <ProtectedRoute>
+              <AddLease />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/lease/:id"
+          element={
+            <ProtectedRoute>
+              <LeaseDetails />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* MAINTENANCE */}
+        <Route
+          path="/maintenance"
+          element={
+            <ProtectedRoute>
+              <MaintenanceList />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/maintenance/add"
+          element={
+            <ProtectedRoute>
+              <AddMaintenance />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/maintenance/:id"
+          element={
+            <ProtectedRoute>
+              <MaintenanceDetails />
+            </ProtectedRoute>
           }
         />
       </Routes>
-    </Router>
+    </>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <Router>
+      <AppContainer />
+    </Router>
+  );
+}

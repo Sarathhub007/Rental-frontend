@@ -1,39 +1,47 @@
 {
-  "name": "vite-project",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite --port 10000 --host", 
-    "build": "vite build",
-    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "@clerk/clerk-react": "^5.9.3",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-router-dom": "^6.26.2",
-    "@chakra-ui/react": "^3.2.2",
-    "@emotion/react": "^11.13.5",
-    "@emotion/styled": "^11.13.5",
-    "framer-motion": "^11.12.0",
-    "lucide-react": "^0.462.0",
-    "socket.io-client": "^4.8.1",
-    "uuid": "^11.0.3"
-  },
-  "devDependencies": {
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react": "^4.3.1",
-    "autoprefixer": "^10.4.20",
-    "daisyui": "^4.12.14",
-    "eslint": "^8.57.0",
-    "eslint-plugin-react": "^7.34.3",
-    "eslint-plugin-react-hooks": "^4.6.2",
-    "eslint-plugin-react-refresh": "^0.4.7",
-    "postcss": "^8.4.49",
-    "tailwindcss": "^3.4.16",
-    "vite": "^5.3.4"
-  }
+    "name": "vite-project",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+      "dev": "vite --port 5173 --host",
+        "build": "vite build",
+        "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+        "preview": "vite preview"
+    },
+    "dependencies": {
+        "@chakra-ui/react": "^3.2.2",
+        "@clerk/clerk-react": "^5.55.0",
+        "@emotion/react": "^11.13.5",
+        "@emotion/styled": "^11.13.5",
+        "@radix-ui/react-dialog": "^1.1.15",
+        "@radix-ui/react-separator": "^1.1.8",
+        "@radix-ui/react-slot": "^1.2.4",
+        "class-variance-authority": "^0.7.1",
+        "clsx": "^2.1.1",
+        "framer-motion": "^11.12.0",
+        "lucide-react": "^0.462.0",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1",
+        "react-router-dom": "^6.30.2",
+        "recharts": "^3.4.1",
+        "socket.io-client": "^4.8.1",
+        "tailwind-merge": "^3.4.0",
+        "uuid": "^11.0.3"
+    },
+    "devDependencies": {
+        "@types/node": "^24.10.1",
+        "@types/react": "^18.3.3",
+        "@types/react-dom": "^18.3.0",
+        "@vitejs/plugin-react": "^4.3.1",
+        "autoprefixer": "^10.4.22",
+        "eslint": "^8.57.0",
+        "eslint-plugin-react": "^7.34.3",
+        "eslint-plugin-react-hooks": "^4.6.2",
+        "eslint-plugin-react-refresh": "^0.4.7",
+        "postcss": "^8.5.6",
+        "shadcn-ui": "^0.9.5",
+        "tailwindcss": "^3.4.17",
+        "vite": "^7.2.2"
+    }
 }
