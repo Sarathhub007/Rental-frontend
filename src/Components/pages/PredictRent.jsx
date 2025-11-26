@@ -1,4 +1,10 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Loader2 } from "lucide-react";
+
 export default function PredictRent() {
   const [form, setForm] = useState({
     location: "",
@@ -17,17 +23,17 @@ export default function PredictRent() {
     setError("");
     setPrice(null);
     setLoading(true);
+
     try {
       const res = await fetch(
-        `${
-          import.meta.env.VITE_API_URL || "http://localhost:5000"
-        }/api/ai/predict-rent`,
+        `${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/ai/predict-rent`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(form),
         }
       );
+
       const data = await res.json();
       if (res.ok) setPrice(data.price || data.raw || "N/A");
       else setError(data.error || "Prediction failed");
@@ -39,54 +45,75 @@ export default function PredictRent() {
   };
 
   return (
-    <div className="p-4 max-w-2xl mx-auto">
-      <h2 className="text-xl font-semibold mb-4">Rent Price Predictor</h2>
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="max-w-2xl mx-auto p-6"
+    >
+      <h2 className="text-3xl font-semibold mb-6">Rent Price Predictor</h2>
 
-      <div className="space-y-2">
-        <input
-          name="location"
-          placeholder="Location"
-          value={form.location}
-          onChange={handleChange}
-          className="input"
-        />
-        <input
-          name="sqft"
-          placeholder="Square feet"
-          value={form.sqft}
-          onChange={handleChange}
-          className="input"
-        />
-        <input
-          name="bhk"
-          placeholder="BHK"
-          value={form.bhk}
-          onChange={handleChange}
-          className="input"
-        />
-        <input
-          name="furnishing"
-          placeholder="Furnishing (furnished/semifurnished/none)"
-          value={form.furnishing}
-          onChange={handleChange}
-          className="input"
-        />
-      </div>
+      <Card className="shadow-xl rounded-2xl">
+        <CardContent className="space-y-4 p-6">
 
-      <div className="mt-4">
-        <button onClick={handlePredict} className="btn" disabled={loading}>
-          {loading ? "Predicting..." : "Predict Rent"}
-        </button>
-      </div>
+          <Input
+            name="location"
+            placeholder="Location"
+            value={form.location}
+            onChange={handleChange}
+          />
+
+          <Input
+            name="sqft"
+            placeholder="Square feet"
+            value={form.sqft}
+            onChange={handleChange}
+          />
+
+          <Input
+            name="bhk"
+            placeholder="BHK (1/2/3)"
+            value={form.bhk}
+            onChange={handleChange}
+          />
+
+          <Input
+            name="furnishing"
+            placeholder="Furnishing (furnished / semifurnished / none)"
+            value={form.furnishing}
+            onChange={handleChange}
+          />
+
+          <Button
+            onClick={handlePredict}
+            disabled={loading}
+            className="w-full"
+          >
+            {loading ? (
+              <div className="flex items-center gap-2">
+                <Loader2 className="h-5 w-5 animate-spin" />
+                Predicting…
+              </div>
+            ) : (
+              "Predict Rent"
+            )}
+          </Button>
+        </CardContent>
+      </Card>
 
       {price !== null && (
-        <div className="mt-4">
-          <b>Estimated Rent:</b>{" "}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="mt-6 p-4 bg-white shadow-md rounded-xl border-l-4 border-blue-600"
+        >
+          <b>Estimated Rent: </b>
           {typeof price === "number" ? `₹ ${price}` : price}
-        </div>
+        </motion.div>
       )}
 
-      {error && <div className="mt-2 text-red-600">{error}</div>}
-    </div>
+      {error && (
+        <div className="mt-3 text-red-600 font-medium text-lg">{error}</div>
+      )}
+    </motion.div>
   );
 }

@@ -53,7 +53,6 @@ export default function PropertiesList() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 py-12 px-4">
       <div className="max-w-7xl mx-auto">
-   
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-gray-900">All Properties</h1>
           <p className="text-gray-600 mt-1">
@@ -61,10 +60,8 @@ export default function PropertiesList() {
           </p>
         </div>
 
-  
         <Card className="mb-10">
           <CardContent className="p-6 space-y-5">
-        
             <div className="flex items-center gap-3">
               <Search className="text-gray-600" />
               <Input
@@ -128,7 +125,11 @@ export default function PropertiesList() {
                   <div className="h-48 w-full overflow-hidden">
                     {p.images?.length ? (
                       <img
-                        src={`${API}${p.images[0].url}`}
+                        src={
+                          p.images[0]?.url.startsWith("http")
+                            ? p.images[0].url
+                            : `${API}${p.images[0].url}`
+                        }
                         alt={p.title}
                         className="w-full h-full object-cover group-hover:scale-110 transition duration-300"
                       />

@@ -14,14 +14,14 @@ export default function AddLease() {
     propertyId: "",
     startDate: "",
     endDate: "",
-    monthlyRent: "",
+    rentAmount: "",
   });
 
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState(null);
 
   useEffect(() => {
-    fetch(`${API}/api/tenant/all`)
+    fetch(`${API}/api/tenants`)
       .then((res) => res.json())
       .then((data) => setTenants(data));
 
@@ -39,14 +39,19 @@ export default function AddLease() {
     setMsg(null);
 
     try {
-      const res = await fetch(`${API}/api/lease/add`, {
+      const res = await fetch(`${API}/api/leases/add`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          tenant: form.tenantId,
+          property: form.propertyId,
+          startDate: form.startDate,
+          endDate: form.endDate,
+          rentAmount: form.rentAmount,
+        }),
       });
 
       const data = await res.json();
-
       if (!res.ok) throw new Error(data.error);
 
       setMsg({ type: "success", text: "Lease created successfully!" });
@@ -56,7 +61,7 @@ export default function AddLease() {
         propertyId: "",
         startDate: "",
         endDate: "",
-        monthlyRent: "",
+        rentAmount: "",
       });
 
     } catch (err) {
@@ -69,7 +74,7 @@ export default function AddLease() {
   return (
     <div className="min-h-screen bg-brand-BG py-10 px-4">
       <div className="max-w-3xl mx-auto">
-        
+
         <h1 className="text-3xl font-bold mb-4">Create New Lease</h1>
 
         {msg && (
@@ -88,7 +93,6 @@ export default function AddLease() {
           <CardContent className="p-8">
             <form className="space-y-5" onSubmit={submit}>
 
-              {/* Tenant Dropdown */}
               <select
                 name="tenantId"
                 className="border p-2 rounded w-full"
@@ -104,7 +108,6 @@ export default function AddLease() {
                 ))}
               </select>
 
-              {/* Property Dropdown */}
               <select
                 name="propertyId"
                 className="border p-2 rounded w-full"
@@ -120,7 +123,6 @@ export default function AddLease() {
                 ))}
               </select>
 
-              {/* Dates */}
               <Input
                 name="startDate"
                 type="date"
@@ -137,12 +139,11 @@ export default function AddLease() {
                 required
               />
 
-              {/* Rent */}
               <Input
-                name="monthlyRent"
+                name="rentAmount"
                 type="number"
                 placeholder="Monthly Rent (₹)"
-                value={form.monthlyRent}
+                value={form.rentAmount}
                 onChange={handleChange}
                 required
               />

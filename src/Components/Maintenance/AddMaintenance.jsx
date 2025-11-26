@@ -17,12 +17,12 @@ export default function AddMaintenance() {
     tenantId: "",
     propertyId: "",
     description: "",
-    category: "",
+    issueType: "",
     risk: "",
   });
 
   useEffect(() => {
-    fetch(`${API}/api/tenant/all`)
+    fetch(`${API}/api/tenants/`)
       .then((res) => res.json())
       .then((data) => setTenants(data));
 
@@ -46,9 +46,17 @@ export default function AddMaintenance() {
 
       const data = await res.json();
 
+      const mapCategory = {
+        plumbing: "Plumbing",
+        electrical: "Electrical",
+        cleaning: "Cleaning",
+        other: "Other",
+        structural: "Other", 
+      };
+
       setForm((prev) => ({
         ...prev,
-        category: data.category,
+        issueType: mapCategory[data.category.toLowerCase()] || "Other",
         risk: data.risk,
       }));
     } catch (err) {
@@ -78,10 +86,9 @@ export default function AddMaintenance() {
         tenantId: "",
         propertyId: "",
         description: "",
-        category: "",
+        issueType: "",
         risk: "",
       });
-
     } catch (err) {
       setMsg({ type: "error", text: err.message });
     } finally {
@@ -92,9 +99,10 @@ export default function AddMaintenance() {
   return (
     <div className="min-h-screen bg-brand-BG py-10 px-4">
       <div className="max-w-3xl mx-auto">
-
         <h1 className="text-3xl font-bold mb-3">Report Maintenance Issue</h1>
-        <p className="text-gray-600 mb-6">Submit an issue and let us handle the rest.</p>
+        <p className="text-gray-600 mb-6">
+          Submit an issue and let us handle the rest.
+        </p>
 
         {msg && (
           <div
@@ -111,7 +119,6 @@ export default function AddMaintenance() {
         <Card>
           <CardContent className="p-8">
             <form className="space-y-5" onSubmit={submit}>
-
               {/* Tenant */}
               <select
                 name="tenantId"
@@ -166,9 +173,9 @@ export default function AddMaintenance() {
 
               {/* Category */}
               <Input
-                name="category"
+                name="issueType"
                 placeholder="Issue category (auto-filled)"
-                value={form.category}
+                value={form.issueType}
                 onChange={handleChange}
                 required
               />
@@ -186,11 +193,9 @@ export default function AddMaintenance() {
               <Button className="w-full" disabled={loading}>
                 {loading ? "Submitting..." : "Submit Issue"}
               </Button>
-
             </form>
           </CardContent>
         </Card>
-
       </div>
     </div>
   );

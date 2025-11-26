@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { Clock, CheckCircle, Loader } from "lucide-react";
+import { Loader } from "lucide-react";
 
 export default function LeaseList() {
   const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
@@ -16,19 +16,16 @@ export default function LeaseList() {
       .finally(() => setLoading(false));
   }, []);
 
-  const badge = (status) => {
-    if (status === "Active")
-      return (
-        <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm">
-          Active
-        </span>
-      );
-    return (
+  const badge = (status) =>
+    status === "Active" ? (
+      <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm">
+        Active
+      </span>
+    ) : (
       <span className="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm">
-        Expired
+        {status}
       </span>
     );
-  };
 
   if (loading)
     return (
@@ -39,8 +36,8 @@ export default function LeaseList() {
 
   return (
     <div className="min-h-screen bg-brand-BG py-10 px-4">
-
       <div className="max-w-5xl mx-auto">
+
         <h1 className="text-3xl font-bold mb-6">Lease Agreements</h1>
 
         {leases.length === 0 ? (
@@ -53,15 +50,15 @@ export default function LeaseList() {
                   <CardContent className="p-5 space-y-3">
 
                     <h2 className="text-xl font-semibold">
-                      {l.tenantName || "Tenant"}
+                      {l.tenant?.name || "Tenant"}
                     </h2>
 
                     <p className="text-gray-700 font-medium">
-                      {l.propertyTitle || "Property"}
+                      {l.property?.title || "Property"}
                     </p>
 
                     <p className="text-sm text-gray-500">
-                      {l.startDate} → {l.endDate}
+                      {l.startDate?.slice(0, 10)} → {l.endDate?.slice(0, 10)}
                     </p>
 
                     {badge(l.status)}
@@ -74,7 +71,6 @@ export default function LeaseList() {
         )}
 
       </div>
-
     </div>
   );
 }

@@ -21,21 +21,21 @@
     const properties = [
       {
         id: 1,
-        imgSrc: "/mnt/data/72a41bdf-14e7-49e0-9195-e6253ab54615.png", 
+        imgSrc:"https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1200&q=80",
         price: "$500,000",
         location: "Hyderabad",
         type: "Modern Apartment",
       },
       {
         id: 2,
-        imgSrc: "/img-2.jpg",
+        imgSrc:"https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=1200&q=80",
         price: "$600,000",
         location: "Bangalore",
         type: "Luxury Villa",
       },
       {
         id: 3,
-        imgSrc: "/img-3.jpg",
+        imgSrc:"https://images.unsplash.com/photo-1572120360610-d971b9d7767c",
         price: "$700,000",
         location: "Mumbai",
         type: "Sea-view Penthouse",

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 export default function PropertyDetails() {
   const { id } = useParams();
   const [property, setProperty] = useState(null);
   const [loading, setLoading] = useState(true);
+
   const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
   const fetchDetails = async () => {
@@ -24,34 +24,47 @@ export default function PropertyDetails() {
     fetchDetails();
   }, [id]);
 
-  if (loading) return <p className="text-center mt-10">Loading...</p>;
+  if (loading)
+    return <p className="text-center mt-10 text-gray-600">Loading...</p>;
+
   if (!property)
-    return <p className="text-center mt-10">Property not found.</p>;
+    return <p className="text-center mt-10 text-red-500">Property not found.</p>;
+
+  // Function to return safe image URL
+  const getImageURL = (url) => {
+    if (!url) return "";
+    return url.startsWith("http") ? url : `${API}${url}`;
+  };
 
   return (
-    <div className="max-w-4xl mx-auto p-4">
-      {/* Title */}
-      <h1 className="text-3xl font-bold mb-2">{property.title}</h1>
-      <p className="text-gray-600 mb-4">{property.location}</p>
+    <div className="max-w-5xl mx-auto p-4">
 
-      {/* Image Carousel */}
+      {/* TITLE */}
+      <h1 className="text-4xl font-bold text-gray-900">{property.title}</h1>
+      <p className="text-gray-600 mb-4 text-lg">{property.location}</p>
+
+      {/* IMAGE CAROUSEL */}
       {property.images && property.images.length > 0 ? (
         <div className="w-full mb-6">
+
+          {/* MAIN IMAGE */}
           <img
-            src={`${API}${property.images[0].url}`}
+            src={getImageURL(property.images[0].url)}
             alt="Property"
-            className="w-full h-80 object-cover rounded"
+            className="w-full h-[420px] object-cover rounded-xl shadow"
           />
 
-          {/* Thumbnails */}
-          <div className="flex gap-3 mt-3 overflow-x-auto">
+          {/* THUMBNAILS */}
+          <div className="flex gap-3 mt-4 overflow-x-auto pb-3">
             {property.images.map((img, idx) => (
               <img
                 key={idx}
-                src={`${API}${img.url}`}
-                className="h-24 w-32 object-cover rounded cursor-pointer border"
+                src={getImageURL(img.url)}
+                alt=""
+                className={`h-24 w-32 object-cover rounded cursor-pointer border 
+                  ${idx === 0 ? "border-blue-600" : "border-gray-300"}`}
                 onClick={() => {
-                  // change main image by reordering array
+                  // Swap main image with clicked thumbnail
                   const newImages = [...property.images];
                   const temp = newImages[0];
                   newImages[0] = newImages[idx];
@@ -63,43 +76,55 @@ export default function PropertyDetails() {
           </div>
         </div>
       ) : (
-        <div className="h-40 bg-gray-200 rounded flex items-center justify-center">
-          No Images
+        <div className="h-48 bg-gray-200 rounded flex items-center justify-center">
+          <p className="text-gray-500">No Images Uploaded</p>
         </div>
       )}
 
-      {/* Info Section */}
-      <div className="bg-white shadow rounded p-5 space-y-3">
-        <p>
-          <span className="font-semibold">BHK:</span> {property.bhk}
+      {/* INFO SECTION */}
+      <div className="bg-white shadow-md rounded-xl p-6 mt-6 space-y-4">
+
+        <p className="text-lg">
+          <span className="font-semibold">BHK:</span>{" "}
+          {property.bhk ? property.bhk : "N/A"}
         </p>
-        <p>
+
+        <p className="text-lg">
           <span className="font-semibold">Type:</span> {property.type}
         </p>
-        <p>
-          <span className="font-semibold">Size:</span> {property.size} sqft
-        </p>
-        <p>
-          <span className="font-semibold">Price:</span> ₹{property.price}
+
+        <p className="text-lg">
+          <span className="font-semibold">Size:</span> {property.size}
         </p>
 
-        <h2 className="text-xl font-semibold mt-4">Description</h2>
-        <p className="text-gray-700">{property.description}</p>
+        <p className="text-lg">
+          <span className="font-semibold">Price:</span>{" "}
+          ₹{property.price?.toLocaleString()}
+        </p>
+
+        {/* DESCRIPTION */}
+        <h2 className="text-2xl font-semibold mt-4">Description</h2>
+        <p className="text-gray-700 leading-relaxed text-lg">
+          {property.description}
+        </p>
       </div>
-      <Link
-        to={`/property/edit/${property._id}`}
-        className="bg-yellow-500 text-white px-4 py-2 rounded inline-block mt-4"
-      >
-        Edit Property
-      </Link>
 
-      {/* Back Button */}
-      <button
-        className="mt-6 bg-blue-600 text-white px-4 py-2 rounded"
-        onClick={() => window.history.back()}
-      >
-        ← Back
-      </button>
+      {/* ACTION BUTTONS */}
+      <div className="flex items-center gap-4 mt-6">
+        <Link
+          to={`/property/edit/${property._id}`}
+          className="bg-yellow-500 hover:bg-yellow-600 text-white px-5 py-2 rounded-lg shadow"
+        >
+          Edit Property
+        </Link>
+
+        <button
+          onClick={() => window.history.back()}
+          className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg shadow"
+        >
+          ← Back
+        </button>
+      </div>
     </div>
   );
 }

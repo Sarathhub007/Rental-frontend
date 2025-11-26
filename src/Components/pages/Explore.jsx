@@ -12,6 +12,7 @@ import {
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
 
 export default function Explore() {
   const { propertyId } = useParams();
@@ -67,16 +68,16 @@ export default function Explore() {
     },
   ];
 
-  const property = propertyDetails.find(
-    (p) => p.id === parseInt(propertyId)
-  );
+  const property = propertyDetails.find((p) => p.id === parseInt(propertyId));
 
   if (!property) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4">
         <div className="text-center">
           <div className="text-6xl mb-4">🏚️</div>
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">Property Not Found</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-2">
+            Property Not Found
+          </h2>
           <p className="text-gray-600 mb-6">
             The property you're looking for doesn't exist.
           </p>
@@ -93,9 +94,12 @@ export default function Explore() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 py-12 px-4">
-      <div className="max-w-5xl mx-auto space-y-10">
-
-        {/* Back button */}
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="max-w-5xl mx-auto space-y-10"
+      >
+        {/* BACK BUTTON */}
         <Link
           to="/properties"
           className="inline-flex items-center gap-2 text-blue-600 font-semibold hover:underline"
@@ -104,144 +108,141 @@ export default function Explore() {
         </Link>
 
         {/* HEADER CARD */}
-        <Card className="shadow-lg">
-          <CardContent className="p-8">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-              
-              {/* Title + Location */}
-              <div>
-                <h1 className="text-4xl font-bold text-gray-900">{property.name}</h1>
-                <div className="mt-3 flex items-center gap-2 text-gray-600">
-                  <MapPin size={20} className="text-blue-600" />
-                  <span className="text-lg">{property.location}</span>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+          <Card className="shadow-lg rounded-2xl hover:shadow-xl transition">
+            <CardContent className="p-8">
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                <div>
+                  <h1 className="text-4xl font-bold text-gray-900">
+                    {property.name}
+                  </h1>
+                  <div className="mt-3 flex items-center gap-2 text-gray-600">
+                    <MapPin size={20} className="text-blue-600" />
+                    <span className="text-lg">{property.location}</span>
+                  </div>
+                </div>
+
+                <div className="text-right">
+                  <p className="text-sm text-gray-600">Price</p>
+                  <p className="text-4xl font-bold text-blue-600">
+                    {property.price}
+                  </p>
                 </div>
               </div>
 
-              {/* Price */}
-              <div className="text-right">
-                <p className="text-sm text-gray-600">Price</p>
-                <p className="text-4xl font-bold text-blue-600">
-                  {property.price}
-                </p>
+              <div className="inline-block bg-blue-100 text-blue-700 px-4 py-2 rounded-full font-semibold mt-6">
+                {property.type}
               </div>
-            </div>
-
-            {/* Type Badge */}
-            <div className="inline-block bg-blue-100 text-blue-700 px-4 py-2 rounded-full font-semibold mt-6">
-              {property.type}
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </motion.div>
 
         {/* DETAILS GRID */}
-        <div className="grid md:grid-cols-2 gap-8">
-
-          {/* Property Details */}
-          <Card className="shadow-md">
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="grid md:grid-cols-2 gap-8"
+        >
+          {/* PROPERTY DETAILS */}
+          <Card className="shadow-md rounded-2xl">
             <CardContent className="p-8 space-y-6">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">
                 Property Details
               </h2>
 
-              <div className="flex items-start gap-4">
-                <div className="bg-blue-100 p-3 rounded-lg">
-                  <Ruler size={24} className="text-blue-600" />
-                </div>
-                <div>
-                  <p className="text-gray-600 text-sm">Size</p>
-                  <p className="text-xl font-semibold">{property.size}</p>
-                </div>
-              </div>
+              <DetailItem
+                icon={<Ruler size={24} className="text-blue-600" />}
+                label="Size"
+                value={property.size}
+              />
 
-              <div className="flex items-start gap-4">
-                <div className="bg-blue-100 p-3 rounded-lg">
-                  <Home size={24} className="text-blue-600" />
-                </div>
-                <div>
-                  <p className="text-gray-600 text-sm">Type</p>
-                  <p className="text-xl font-semibold">{property.type}</p>
-                </div>
-              </div>
+              <DetailItem
+                icon={<Home size={24} className="text-blue-600" />}
+                label="Type"
+                value={property.type}
+              />
 
-              <div className="flex items-start gap-4">
-                <div className="bg-blue-100 p-3 rounded-lg">
-                  <BadgeDollarSign size={24} className="text-blue-600" />
-                </div>
-                <div>
-                  <p className="text-gray-600 text-sm">Rental Value</p>
-                  <p className="text-xl font-semibold">{property.rental}</p>
-                </div>
-              </div>
+              <DetailItem
+                icon={<BadgeDollarSign size={24} className="text-blue-600" />}
+                label="Rental Value"
+                value={property.rental}
+              />
             </CardContent>
           </Card>
 
-          {/* Owner Info */}
-          <Card className="shadow-md">
+          {/* OWNER INFO */}
+          <Card className="shadow-md rounded-2xl">
             <CardContent className="p-8 space-y-6">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">
                 Owner Information
               </h2>
 
-              <div className="flex items-start gap-4">
-                <div className="bg-emerald-100 p-3 rounded-lg">
-                  <Users size={24} className="text-emerald-600" />
-                </div>
-                <div>
-                  <p className="text-gray-600 text-sm">Name</p>
-                  <p className="text-xl font-semibold">{property.owner.name}</p>
-                </div>
-              </div>
+              <DetailItem
+                icon={<Users size={24} className="text-emerald-600" />}
+                label="Name"
+                value={property.owner.name}
+              />
 
-              <div className="flex items-start gap-4">
-                <div className="bg-emerald-100 p-3 rounded-lg">
-                  <Phone size={24} className="text-emerald-600" />
-                </div>
-                <div>
-                  <p className="text-gray-600 text-sm">Phone</p>
+              <DetailItem
+                icon={<Phone size={24} className="text-emerald-600" />}
+                label="Phone"
+                value={
                   <a
                     href={`tel:${property.owner.contact}`}
                     className="text-xl font-semibold text-blue-600 hover:underline"
                   >
                     {property.owner.contact}
                   </a>
-                </div>
-              </div>
+                }
+              />
 
-              <div className="flex items-start gap-4">
-                <div className="bg-emerald-100 p-3 rounded-lg">
-                  <Mail size={24} className="text-emerald-600" />
-                </div>
-                <div>
-                  <p className="text-gray-600 text-sm">Email</p>
+              <DetailItem
+                icon={<Mail size={24} className="text-emerald-600" />}
+                label="Email"
+                value={
                   <a
                     href={`mailto:${property.owner.email}`}
                     className="text-xl font-semibold text-blue-600 hover:underline break-all"
                   >
                     {property.owner.email}
                   </a>
-                </div>
-              </div>
+                }
+              />
 
               <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white mt-4">
                 Contact Owner
               </Button>
             </CardContent>
           </Card>
-        </div>
+        </motion.div>
 
         {/* DESCRIPTION */}
-        <Card className="shadow-md">
-          <CardContent className="p-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-3">
-              Description
-            </h2>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+          <Card className="shadow-md rounded-2xl">
+            <CardContent className="p-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-3">
+                Description
+              </h2>
 
-            <p className="text-lg text-gray-700 leading-relaxed">
-              {property.description}
-            </p>
-          </CardContent>
-        </Card>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                {property.description}
+              </p>
+            </CardContent>
+          </Card>
+        </motion.div>
+      </motion.div>
+    </div>
+  );
+}
 
+/* ---- Small Reusable Component ---- */
+function DetailItem({ icon, label, value }) {
+  return (
+    <div className="flex items-start gap-4">
+      <div className="bg-blue-100 p-3 rounded-lg">{icon}</div>
+      <div>
+        <p className="text-gray-600 text-sm">{label}</p>
+        <p className="text-xl font-semibold">{value}</p>
       </div>
     </div>
   );

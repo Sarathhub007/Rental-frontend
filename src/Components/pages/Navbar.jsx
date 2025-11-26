@@ -42,10 +42,14 @@ export default function Navbar() {
                     <DropdownItem to="/property/add" label="Add Property" onClick={()=>setOpen(false)} />
 
                     <DropdownItem to="/tenants" label="Tenants" onClick={()=>setOpen(false)} />
+                    <DropdownItem to="/tenant/add" label="Add Tenants" onClick={()=>setOpen(false)} />
                     <DropdownItem to="/leases" label="Leases"onClick={()=>setOpen(false)} />
+                    <DropdownItem to="/lease/add" label=" Add Leases"onClick={()=>setOpen(false)} />
                     <DropdownItem to="/maintenance" label="Maintenance" onClick={()=>setOpen(false)} />
+                     <DropdownItem to="/maintenance/add" label=" Add Maintenance" onClick={()=>setOpen(false)} />
 
                     <DropdownItem to="/predict-rent" label="Predict Rent" onClick={()=>setOpen(false)} />
+                    <DropdownItem to="categorize-issue" label="categorize issue" onClick={()=>setOpen(false)}/>
                     <DropdownItem to="/chat" label="Chat Bot" onClick={()=>setOpen(false)} />
                   </div>
                 )}

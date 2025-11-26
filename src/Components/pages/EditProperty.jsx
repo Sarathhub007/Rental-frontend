@@ -13,10 +13,17 @@ export default function EditProperty() {
     bhk: "",
     type: "",
     price: "",
+    imageURL: "",
   });
 
   const [loading, setLoading] = useState(true);
   const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
+  // Fix for backend/external image
+  const getImageURL = (url) => {
+    if (!url) return "";
+    return url.startsWith("http") ? url : `${API}${url}`;
+  };
 
   useEffect(() => {
     const fetchProperty = async () => {
@@ -32,6 +39,7 @@ export default function EditProperty() {
           bhk: data.bhk || "",
           type: data.type || "",
           price: data.price || "",
+          imageURL: data.images?.[0]?.url || "",
         });
       } finally {
         setLoading(false);
@@ -41,14 +49,27 @@ export default function EditProperty() {
     fetchProperty();
   }, [id]);
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
 
   const submit = async (e) => {
     e.preventDefault();
+
+    const body = {
+      ...form,
+      images: [
+        {
+          url: form.imageURL,
+          filename: form.imageURL.split("/").pop(),
+          version: 1,
+        }
+      ]
+    };
+
     const res = await fetch(`${API}/api/property/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
+      body: JSON.stringify(body),
     });
 
     if (res.ok) {
@@ -62,49 +83,121 @@ export default function EditProperty() {
   if (loading) return <p className="text-center mt-10">Loading...</p>;
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white shadow rounded-xl">
-      <h2 className="text-2xl font-bold mb-4">Edit Property</h2>
+    <div className="max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-xl border">
+      <h2 className="text-3xl font-bold mb-6 text-gray-900">
+        Edit Property
+      </h2>
 
-      <form onSubmit={submit} className="space-y-4">
+      <form onSubmit={submit} className="space-y-6">
 
-        <div>
-          <label className="font-semibold">Title</label>
-          <input name="title" className="input" value={form.title} onChange={handleChange} />
+        {/* FORM FIELD */}
+        <div className="space-y-1">
+          <label className="font-semibold text-gray-700">Title</label>
+          <input
+            name="title"
+            className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400"
+            value={form.title}
+            onChange={handleChange}
+          />
         </div>
 
-        <div>
-          <label className="font-semibold">Description</label>
-          <textarea name="description" className="textarea" value={form.description} onChange={handleChange} />
+        {/* DESCRIPTION */}
+        <div className="space-y-1">
+          <label className="font-semibold text-gray-700">Description</label>
+          <textarea
+            name="description"
+            className="w-full border rounded-lg px-3 py-2 h-24 focus:ring-2 focus:ring-blue-400"
+            value={form.description}
+            onChange={handleChange}
+          />
         </div>
 
-        <div>
-          <label className="font-semibold">Location</label>
-          <input name="location" className="input" value={form.location} onChange={handleChange} />
+        {/* LOCATION */}
+        <div className="space-y-1">
+          <label className="font-semibold text-gray-700">Location</label>
+          <input
+            name="location"
+            className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400"
+            value={form.location}
+            onChange={handleChange}
+          />
         </div>
 
+        {/* SIZE + BHK */}
         <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="font-semibold">Size</label>
-            <input name="size" type="number" className="input" value={form.size} onChange={handleChange} />
+          <div className="space-y-1">
+            <label className="font-semibold text-gray-700">Size</label>
+            <input
+              name="size"
+              type="text"
+              className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400"
+              value={form.size}
+              onChange={handleChange}
+            />
           </div>
 
-          <div>
-            <label className="font-semibold">BHK</label>
-            <input name="bhk" type="number" className="input" value={form.bhk} onChange={handleChange} />
+          <div className="space-y-1">
+            <label className="font-semibold text-gray-700">BHK</label>
+            <input
+              name="bhk"
+              type="number"
+              className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400"
+              value={form.bhk}
+              onChange={handleChange}
+            />
           </div>
         </div>
 
-        <div>
-          <label className="font-semibold">Type</label>
-          <input name="type" className="input" value={form.type} onChange={handleChange} />
+        {/* TYPE */}
+        <div className="space-y-1">
+          <label className="font-semibold text-gray-700">Type</label>
+          <input
+            name="type"
+            className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400"
+            value={form.type}
+            onChange={handleChange}
+          />
         </div>
 
-        <div>
-          <label className="font-semibold">Price</label>
-          <input name="price" type="number" className="input" value={form.price} onChange={handleChange} />
+        {/* PRICE */}
+        <div className="space-y-1">
+          <label className="font-semibold text-gray-700">Price</label>
+          <input
+            name="price"
+            type="number"
+            className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400"
+            value={form.price}
+            onChange={handleChange}
+          />
         </div>
 
-        <button className="btn w-full">Save Changes</button>
+        {/* SINGLE IMAGE */}
+        <div className="space-y-2">
+          <label className="font-semibold text-gray-700">
+            Property Image (Only One)
+          </label>
+
+          {form.imageURL && (
+            <img
+              src={getImageURL(form.imageURL)}
+              className="h-44 w-full object-cover rounded-lg border"
+            />
+          )}
+
+          <input
+            name="imageURL"
+            placeholder="Enter image URL or /uploads/file.jpg"
+            className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400"
+            value={form.imageURL}
+            onChange={handleChange}
+          />
+        </div>
+
+        <button
+          className="bg-blue-600 hover:bg-blue-700 text-white w-full py-2 rounded-lg font-semibold"
+        >
+          Save Changes
+        </button>
       </form>
     </div>
   );
