@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+import { Card, CardContent } from "@/Components/ui/card";
+import { Input } from "@/Components/ui/input";
 import { Link } from "react-router-dom";
 import { Search, UserRound, Loader } from "lucide-react";
 
@@ -31,7 +31,6 @@ export default function TenantList() {
 
   return (
     <div className="min-h-screen bg-brand-BG py-10 px-4">
-
       <div className="max-w-5xl mx-auto">
         <h1 className="text-3xl font-bold mb-4">Tenant List</h1>
 
@@ -53,7 +52,6 @@ export default function TenantList() {
               <Link to={`/tenant/${t._id}`} key={t._id}>
                 <Card className="hover:shadow-lg transition">
                   <CardContent className="p-6 space-y-2">
-
                     <div className="flex items-center gap-3">
                       <UserRound className="text-blue-600" />
                       <h2 className="text-xl font-semibold">{t.name}</h2>
@@ -65,16 +63,13 @@ export default function TenantList() {
                     <p className="text-sm text-gray-500 mt-2">
                       Property: {t.propertyId ? "Assigned" : "Not Assigned"}
                     </p>
-
                   </CardContent>
                 </Card>
               </Link>
             ))}
           </div>
         )}
-
       </div>
-
     </div>
   );
 }

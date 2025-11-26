@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
+import { Card, CardContent } from "@/Components/ui/card";
+import { Button } from "@/Components/ui/button";
+import { Textarea } from "@/Components/ui/textarea";
 import { Loader2 } from "lucide-react";
 
 export default function CategorizeIssue() {
@@ -16,7 +16,9 @@ export default function CategorizeIssue() {
 
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/ai/categorize`,
+        `${
+          import.meta.env.VITE_API_URL || "http://localhost:5000"
+        }/api/ai/categorize`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

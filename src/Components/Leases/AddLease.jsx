@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/Components/ui/card";
+import { Input } from "@/Components/ui/input";
+import { Button } from "@/Components/ui/button";
 
 export default function AddLease() {
   const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
@@ -63,7 +63,6 @@ export default function AddLease() {
         endDate: "",
         rentAmount: "",
       });
-
     } catch (err) {
       setMsg({ type: "error", text: err.message });
     } finally {
@@ -74,7 +73,6 @@ export default function AddLease() {
   return (
     <div className="min-h-screen bg-brand-BG py-10 px-4">
       <div className="max-w-3xl mx-auto">
-
         <h1 className="text-3xl font-bold mb-4">Create New Lease</h1>
 
         {msg && (
@@ -92,7 +90,6 @@ export default function AddLease() {
         <Card>
           <CardContent className="p-8">
             <form className="space-y-5" onSubmit={submit}>
-
               <select
                 name="tenantId"
                 className="border p-2 rounded w-full"
@@ -151,11 +148,9 @@ export default function AddLease() {
               <Button className="w-full" disabled={loading}>
                 {loading ? "Creating..." : "Create Lease"}
               </Button>
-
             </form>
           </CardContent>
         </Card>
-
       </div>
     </div>
   );

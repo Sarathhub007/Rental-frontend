@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
+import { Card, CardContent } from "@/Components/ui/card";
+import { Input } from "@/Components/ui/input";
+import { Button } from "@/Components/ui/button";
+import { Textarea } from "@/Components/ui/textarea";
 import { UserPlus, Loader } from "lucide-react";
 
 export default function AddTenant() {
@@ -47,7 +47,6 @@ export default function AddTenant() {
 
       setMsg({ type: "success", text: "Tenant added successfully!" });
       setForm({ name: "", email: "", phone: "", address: "", propertyId: "" });
-
     } catch (err) {
       setMsg({ type: "error", text: err.message });
     } finally {
@@ -58,7 +57,6 @@ export default function AddTenant() {
   return (
     <div className="min-h-screen bg-brand-BG py-10 px-4">
       <div className="max-w-3xl mx-auto">
-
         <h1 className="text-3xl font-bold mb-4">Add New Tenant</h1>
 
         {msg && (
@@ -76,7 +74,6 @@ export default function AddTenant() {
         <Card>
           <CardContent className="p-8">
             <form className="space-y-5" onSubmit={submit}>
-
               <Input
                 name="name"
                 placeholder="Tenant name"
@@ -135,11 +132,9 @@ export default function AddTenant() {
                   </span>
                 )}
               </Button>
-
             </form>
           </CardContent>
         </Card>
-
       </div>
     </div>
   );

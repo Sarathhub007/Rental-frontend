@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import {
-  Card,
-  CardContent,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/Components/ui/card";
+import { Button } from "@/Components/ui/button";
 import {
   ResponsiveContainer,
   LineChart,
@@ -48,9 +45,12 @@ export default function Dashboard() {
           activeLeases: data.activeLeases ?? prev.activeLeases,
           activeTenants: data.activeTenants ?? prev.activeTenants,
           maintenanceOpen: data.maintenanceOpen ?? prev.maintenanceOpen,
-          monthlyRentCollected: data.monthlyRentCollected ?? prev.monthlyRentCollected,
+          monthlyRentCollected:
+            data.monthlyRentCollected ?? prev.monthlyRentCollected,
           trends: data.trends?.length ? data.trends : sampleTrends,
-          recentActivity: data.recentActivity?.length ? data.recentActivity : sampleActivity,
+          recentActivity: data.recentActivity?.length
+            ? data.recentActivity
+            : sampleActivity,
         }));
       } catch (err) {
         // silent fallback to sample data
@@ -77,7 +77,9 @@ export default function Dashboard() {
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-3xl font-bold">Dashboard</h1>
-            <p className="text-sm text-gray-600 mt-1">Overview of properties, leases and maintenance.</p>
+            <p className="text-sm text-gray-600 mt-1">
+              Overview of properties, leases and maintenance.
+            </p>
           </div>
 
           <div className="flex items-center gap-3">
@@ -92,26 +94,53 @@ export default function Dashboard() {
           transition={{ duration: 0.45 }}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
         >
-          <StatCard label="Total Properties" value={stats.totalProperties} loading={loading} />
-          <StatCard label="Active Leases" value={stats.activeLeases} loading={loading} />
-          <StatCard label="Active Tenants" value={stats.activeTenants} loading={loading} />
-          <StatCard label="Maintenance Open" value={stats.maintenanceOpen} loading={loading} />
+          <StatCard
+            label="Total Properties"
+            value={stats.totalProperties}
+            loading={loading}
+          />
+          <StatCard
+            label="Active Leases"
+            value={stats.activeLeases}
+            loading={loading}
+          />
+          <StatCard
+            label="Active Tenants"
+            value={stats.activeTenants}
+            loading={loading}
+          />
+          <StatCard
+            label="Maintenance Open"
+            value={stats.maintenanceOpen}
+            loading={loading}
+          />
         </motion.div>
 
         {/* Charts & Activity */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-8">
           <Card className="lg:col-span-2">
             <CardContent>
-              <h2 className="text-lg font-semibold mb-3">Monthly Rent Collected</h2>
+              <h2 className="text-lg font-semibold mb-3">
+                Monthly Rent Collected
+              </h2>
 
               <div style={{ width: "100%", height: 300 }}>
                 <ResponsiveContainer>
-                  <LineChart data={stats.trends} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
+                  <LineChart
+                    data={stats.trends}
+                    margin={{ top: 10, right: 20, left: 0, bottom: 0 }}
+                  >
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="month" />
                     <YAxis />
                     <Tooltip />
-                    <Line type="monotone" dataKey="rent" stroke="#2563eb" strokeWidth={3} dot={{ r: 3 }} />
+                    <Line
+                      type="monotone"
+                      dataKey="rent"
+                      stroke="#2563eb"
+                      strokeWidth={3}
+                      dot={{ r: 3 }}
+                    />
                   </LineChart>
                 </ResponsiveContainer>
               </div>
@@ -119,10 +148,14 @@ export default function Dashboard() {
               <div className="mt-4 flex items-center justify-between">
                 <div>
                   <div className="text-sm text-gray-500">This month</div>
-                  <div className="text-2xl font-bold">₹{(stats.monthlyRentCollected || 0).toLocaleString()}</div>
+                  <div className="text-2xl font-bold">
+                    ₹{(stats.monthlyRentCollected || 0).toLocaleString()}
+                  </div>
                 </div>
 
-                <div className="text-sm text-gray-600">Updated: {new Date().toLocaleString()}</div>
+                <div className="text-sm text-gray-600">
+                  Updated: {new Date().toLocaleString()}
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -133,7 +166,9 @@ export default function Dashboard() {
 
               <div className="space-y-3">
                 {stats.recentActivity.length === 0 ? (
-                  <div className="text-sm text-gray-500">No recent activity</div>
+                  <div className="text-sm text-gray-500">
+                    No recent activity
+                  </div>
                 ) : (
                   stats.recentActivity.slice(0, 6).map((a, i) => (
                     <div key={i} className="p-2 rounded hover:bg-slate-50">
@@ -143,18 +178,33 @@ export default function Dashboard() {
                   ))
                 )}
               </div>
-
             </CardContent>
           </Card>
         </div>
 
         {/* Small KPIs row */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-8">
-          <MiniKPI title="Rent Collected (YTD)" value={`₹${((stats.trends || []).reduce((s, x) => s + (x.rent || 0), 0)).toLocaleString()}`} />
-          <MiniKPI title="Vacant Properties" value={Math.max(0, (stats.totalProperties || 0) - (stats.activeLeases || 0))} />
-          <MiniKPI title="Avg Rent / Property" value={`₹${Math.round(((stats.monthlyRentCollected || 0) / Math.max(1, stats.totalProperties || 1))).toLocaleString()}`} />
+          <MiniKPI
+            title="Rent Collected (YTD)"
+            value={`₹${(stats.trends || [])
+              .reduce((s, x) => s + (x.rent || 0), 0)
+              .toLocaleString()}`}
+          />
+          <MiniKPI
+            title="Vacant Properties"
+            value={Math.max(
+              0,
+              (stats.totalProperties || 0) - (stats.activeLeases || 0)
+            )}
+          />
+          <MiniKPI
+            title="Avg Rent / Property"
+            value={`₹${Math.round(
+              (stats.monthlyRentCollected || 0) /
+                Math.max(1, stats.totalProperties || 1)
+            ).toLocaleString()}`}
+          />
         </div>
-
       </div>
     </div>
   );
@@ -169,9 +219,13 @@ function StatCard({ label, value, loading }) {
         <div className="flex items-center justify-between">
           <div>
             <div className="text-sm text-gray-500">{label}</div>
-            <div className="text-2xl font-bold mt-1">{loading ? "—" : value}</div>
+            <div className="text-2xl font-bold mt-1">
+              {loading ? "—" : value}
+            </div>
           </div>
-          <div className="text-blue-600 text-3xl font-extrabold">{!loading && label === "Active Leases" ? "📄" : ""}</div>
+          <div className="text-blue-600 text-3xl font-extrabold">
+            {!loading && label === "Active Leases" ? "📄" : ""}
+          </div>
         </div>
       </CardContent>
     </Card>

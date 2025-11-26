@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/Components/ui/card";
 
 export default function TenantDetails() {
   const { id } = useParams();
@@ -14,20 +14,23 @@ export default function TenantDetails() {
       .then((data) => setTenant(data));
   }, [id]);
 
-  if (!tenant)
-    return <p className="text-center mt-10">Loading...</p>;
+  if (!tenant) return <p className="text-center mt-10">Loading...</p>;
 
   return (
     <div className="max-w-3xl mx-auto p-6">
-
       <Card>
         <CardContent className="p-6 space-y-4">
-
           <h1 className="text-3xl font-bold">{tenant.name}</h1>
 
-          <p><b>Email:</b> {tenant.email}</p>
-          <p><b>Phone:</b> {tenant.phone}</p>
-          <p><b>Address:</b> {tenant.address}</p>
+          <p>
+            <b>Email:</b> {tenant.email}
+          </p>
+          <p>
+            <b>Phone:</b> {tenant.phone}
+          </p>
+          <p>
+            <b>Address:</b> {tenant.address}
+          </p>
 
           <p>
             <b>Linked Property:</b>{" "}
@@ -37,10 +40,8 @@ export default function TenantDetails() {
               "Not Assigned"
             )}
           </p>
-
         </CardContent>
       </Card>
-
     </div>
   );
 }

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Card, CardContent } from "@/Components/ui/card";
+import { Button } from "@/Components/ui/button";
+import { Input } from "@/Components/ui/input";
 import { Loader2 } from "lucide-react";
 
 export default function PredictRent() {
@@ -26,7 +26,9 @@ export default function PredictRent() {
 
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/ai/predict-rent`,
+        `${
+          import.meta.env.VITE_API_URL || "http://localhost:5000"
+        }/api/ai/predict-rent`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -54,7 +56,6 @@ export default function PredictRent() {
 
       <Card className="shadow-xl rounded-2xl">
         <CardContent className="space-y-4 p-6">
-
           <Input
             name="location"
             placeholder="Location"
@@ -83,11 +84,7 @@ export default function PredictRent() {
             onChange={handleChange}
           />
 
-          <Button
-            onClick={handlePredict}
-            disabled={loading}
-            className="w-full"
-          >
+          <Button onClick={handlePredict} disabled={loading} className="w-full">
             {loading ? (
               <div className="flex items-center gap-2">
                 <Loader2 className="h-5 w-5 animate-spin" />

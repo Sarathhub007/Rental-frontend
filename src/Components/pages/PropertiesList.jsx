@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { MapPin, DoorOpen, Loader, Search } from "lucide-react";
 
-import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
+import { Card, CardContent } from "@/Components/ui/card";
+import { Input } from "@/Components/ui/input";
+import { Separator } from "@/Components/ui/separator";
 
 export default function PropertiesList() {
   const [properties, setProperties] = useState([]);

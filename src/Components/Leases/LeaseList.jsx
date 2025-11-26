@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/Components/ui/card";
 import { Link } from "react-router-dom";
 import { Loader } from "lucide-react";
 
@@ -37,7 +37,6 @@ export default function LeaseList() {
   return (
     <div className="min-h-screen bg-brand-BG py-10 px-4">
       <div className="max-w-5xl mx-auto">
-
         <h1 className="text-3xl font-bold mb-6">Lease Agreements</h1>
 
         {leases.length === 0 ? (
@@ -48,7 +47,6 @@ export default function LeaseList() {
               <Link to={`/lease/${l._id}`} key={l._id}>
                 <Card className="hover:shadow-lg transition">
                   <CardContent className="p-5 space-y-3">
-
                     <h2 className="text-xl font-semibold">
                       {l.tenant?.name || "Tenant"}
                     </h2>
@@ -62,14 +60,12 @@ export default function LeaseList() {
                     </p>
 
                     {badge(l.status)}
-
                   </CardContent>
                 </Card>
               </Link>
             ))}
           </div>
         )}
-
       </div>
     </div>
   );

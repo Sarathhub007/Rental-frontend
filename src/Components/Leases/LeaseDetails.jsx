@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/Components/ui/card";
 
 export default function LeaseDetails() {
   const { id } = useParams();
@@ -22,14 +22,23 @@ export default function LeaseDetails() {
 
       <Card>
         <CardContent className="p-6 space-y-3">
+          <p>
+            <b>Tenant:</b> {lease.tenant?.name}
+          </p>
+          <p>
+            <b>Property:</b> {lease.property?.title}
+          </p>
 
-          <p><b>Tenant:</b> {lease.tenant?.name}</p>
-          <p><b>Property:</b> {lease.property?.title}</p>
+          <p>
+            <b>Start Date:</b> {lease.startDate?.slice(0, 10)}
+          </p>
+          <p>
+            <b>End Date:</b> {lease.endDate?.slice(0, 10)}
+          </p>
 
-          <p><b>Start Date:</b> {lease.startDate?.slice(0,10)}</p>
-          <p><b>End Date:</b> {lease.endDate?.slice(0,10)}</p>
-
-          <p><b>Monthly Rent:</b> ₹{lease.rentAmount}</p>
+          <p>
+            <b>Monthly Rent:</b> ₹{lease.rentAmount}
+          </p>
 
           <p>
             <b>Status:</b>{" "}
@@ -43,11 +52,8 @@ export default function LeaseDetails() {
               </span>
             )}
           </p>
-
         </CardContent>
       </Card>
-
     </div>
   );
 }
-  

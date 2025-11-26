@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Upload, X, CheckCircle, AlertCircle } from "lucide-react";
 
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { Card, CardContent } from "@/Components/ui/card";
+import { Button } from "@/Components/ui/button";
+import { Input } from "@/Components/ui/input";
+import { Textarea } from "@/Components/ui/textarea";
 
 export default function AddProperty() {
   const [form, setForm] = useState({
@@ -48,8 +48,16 @@ export default function AddProperty() {
     setMessage(null);
 
     try {
-      if (!form.title || !form.location || !form.price || !form.bhk || images.length === 0) {
-        throw new Error("Please fill all required fields and upload at least one image.");
+      if (
+        !form.title ||
+        !form.location ||
+        !form.price ||
+        !form.bhk ||
+        images.length === 0
+      ) {
+        throw new Error(
+          "Please fill all required fields and upload at least one image."
+        );
       }
 
       const fd = new FormData();
@@ -91,7 +99,6 @@ export default function AddProperty() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 py-12 px-4">
       <div className="max-w-3xl mx-auto">
-
         {/* HEADER */}
         <h1 className="text-4xl font-bold text-gray-900 mb-3">
           List Your Property
@@ -102,11 +109,13 @@ export default function AddProperty() {
 
         {/* Success/Error Message */}
         {message && (
-          <div className={`p-4 mb-6 rounded-lg flex gap-3 items-center ${
-            message.type === "success"
-              ? "bg-green-50 text-green-700 border border-green-200"
-              : "bg-red-50 text-red-700 border border-red-200"
-          }`}>
+          <div
+            className={`p-4 mb-6 rounded-lg flex gap-3 items-center ${
+              message.type === "success"
+                ? "bg-green-50 text-green-700 border border-green-200"
+                : "bg-red-50 text-red-700 border border-red-200"
+            }`}
+          >
             {message.type === "success" ? (
               <CheckCircle size={20} />
             ) : (
@@ -120,7 +129,6 @@ export default function AddProperty() {
         <Card className="shadow-lg">
           <CardContent className="p-8">
             <form onSubmit={submit} className="space-y-6">
-
               {/* Title */}
               <div>
                 <label className="text-sm font-semibold">Title *</label>
@@ -239,7 +247,10 @@ export default function AddProperty() {
                 {previews.length > 0 && (
                   <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
                     {previews.map((url, index) => (
-                      <div key={index} className="relative rounded-lg overflow-hidden">
+                      <div
+                        key={index}
+                        className="relative rounded-lg overflow-hidden"
+                      >
                         <img
                           src={url}
                           alt="preview"
