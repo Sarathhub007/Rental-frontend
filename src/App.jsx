@@ -13,7 +13,7 @@ import Signin from "./Components/auth/Signin.jsx";
 import Signup from "./Components/auth/Signup.jsx";
 import About from "./Components/pages/About.jsx";
 import Home from "./Components/pages/Home.jsx";
-import Contact from "./Components/pages/contact.jsx";
+import Contact from "./Components/pages/Contact.jsx";
 import Explore from "./Components/pages/Explore.jsx";
 import PredictRent from "./Components/pages/PredictRent.jsx";
 import CategorizeIssue from "./Components/pages/CategorizeIssue.jsx";
@@ -22,7 +22,7 @@ import PropertiesList from "./Components/pages/PropertiesList.jsx";
 import PropertyDetails from "./Components/pages/PropertyDetails.jsx";
 import EditProperty from "./Components/pages/EditProperty.jsx";
 import Chat from "./Components/pages/Chat.jsx";
-import Dashboard from "./Components/pages/dashboard.jsx";
+import Dashboard from "./Components/pages/Dashboard.jsx";
 
 // Tenants
 import TenantList from "./Components/TenantManagement/TenantList.jsx";
@@ -50,7 +50,7 @@ function AppContainer() {
 
   return (
     <>
-     {!hideNavbar && <Navbar socket={socket} />}
+      {!hideNavbar && <Navbar socket={socket} />}
       <Routes>
         <Route path="/" element={<Starting />} />
 
@@ -75,7 +75,7 @@ function AppContainer() {
           path="/chat"
           element={
             <ProtectedRoute>
-               <Chat socket={socket} user="Sarath" /> 
+              <Chat socket={socket} user="Sarath" />
             </ProtectedRoute>
           }
         />
