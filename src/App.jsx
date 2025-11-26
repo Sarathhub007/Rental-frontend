@@ -8,21 +8,21 @@ import Navbar from "./Components/pages/Navbar";
 
 import ProtectedRoute from "./Components/auth/ProtectedRoute";
 
-import Starting from "./Components/pages/Starting";
-import Signin from "./Components/auth/Signin";
-import Signup from "./Components/auth/Signup";
-import About from "./Components/pages/About";
-import Home from "./Components/pages/Home";
-import Contact from "./Components/pages/Contact";
-import Explore from "./Components/pages/Explore";
-import PredictRent from "./Components/pages/PredictRent";
-import CategorizeIssue from "./Components/pages/CategorizeIssue";
-import AddProperty from "./Components/pages/AddProperty";
-import PropertiesList from "./Components/pages/PropertiesList";
-import PropertyDetails from "./Components/pages/PropertyDetails";
-import EditProperty from "./Components/pages/EditProperty";
+import Starting from "./Components/pages/Starting.jsx";
+import Signin from "./Components/auth/Signin.jsx";
+import Signup from "./Components/auth/Signup.jsx";
+import About from "./Components/pages/About.jsx";
+import Home from "./Components/pages/Home.jsx";
+import Contact from "./Components/pages/contact.jsx";
+import Explore from "./Components/pages/Explore.jsx";
+import PredictRent from "./Components/pages/PredictRent.jsx";
+import CategorizeIssue from "./Components/pages/CategorizeIssue.jsx";
+import AddProperty from "./Components/pages/AddProperty.jsx";
+import PropertiesList from "./Components/pages/PropertiesList.jsx";
+import PropertyDetails from "./Components/pages/PropertyDetails.jsx";
+import EditProperty from "./Components/pages/EditProperty.jsx";
 import Chat from "./Components/pages/Chat.jsx";
-import Dashboard from "./Components/pages/dashboard";
+import Dashboard from "./Components/pages/dashboard.jsx";
 
 // Tenants
 import TenantList from "./Components/TenantManagement/TenantList.jsx";
