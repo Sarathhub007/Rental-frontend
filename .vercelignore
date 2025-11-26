@@ -1,0 +1,8 @@
+.git
+.gitignore
+README.md
+.env.local
+node_modules
+dist
+.eslintignore
+.prettierignore
