@@ -25,9 +25,9 @@ import Chat from "./Components/pages/Chat.jsx";
 import Dashboard from "./Components/pages/dashboard";
 
 // Tenants
-import TenantList from "./Components/Tenant Management/TenantList.jsx";
-import TenantDetails from "./Components/Tenant Management/TenantDetails.jsx";
-import AddTenant from "./Components/Tenant Management/AddTenant.jsx";
+import TenantList from "./Components/TenantManagement/TenantList.jsx";
+import TenantDetails from "./Components/TenantManagement/TenantDetails.jsx";
+import AddTenant from "./Components/TenantManagement/AddTenant.jsx";
 
 // Leases
 import LeaseList from "./Components/Leases/LeaseList.jsx";
