@@ -43,7 +43,7 @@ import { io } from "socket.io-client";
 
 function AppContainer() {
   const location = useLocation();
-  const socket = io(process.env.VITE_SOCKET_URL);
+  const socket = io(import.meta.env.VITE_SOCKET_URL);
 
   // Hide Navbar on auth pages
   const hideNavbar = ["/sign-in", "/sign-up"].includes(location.pathname);
